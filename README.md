@@ -1,18 +1,9 @@
 # Dicoding Collection Dashboard ✨
 
-## Setup Environment - Anaconda
+## Setup Environment - Collab
 ```
-conda create --name main-ds python=3.11
-pip install -r requirements.txt
-```
-
-## Setup Environment - Shell/Terminal
-```
-cd Downloads
-pip install -r requirements.txt
+upload file HAM10000_images_part_1 dan HAM10000_images_part_2 ke drive
+cd MyDrive/Datasets/HAM10000/HAM10000_images_part_1 dan MyDrive/Datasets/HAM10000/HAM10000_images_part_1
+upload file HAM10000_metadata langsung di collab
 ```
 
-## Run steamlit app
-```
-streamlit run script.py
-```
