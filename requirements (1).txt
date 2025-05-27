@@ -1,11 +1,11 @@
-requests==2.32.3
-beautifulsoup4==4.13.4
-pandas==2.2.3
-gspread==6.2.1
-oauthlib==3.2.2
-gspread==6.2.1
-python-dateutil==2.9.0.post0
-pytest==8.3.5
-typing_extensions==4.12.2
-numpy==2.2.3
-google-auth==2.40.2
+# Menjalankan skrip ETL pipeline
+python3 main.py
+
+# Menjalankan unit test pada folder tests
+python3 -m pytest tests
+
+# Menjalankan test coverage pada folder tests
+coverage run -m pytest tests
+
+# URL Google Sheets:
+https://docs.google.com/spreadsheets/d/17qihWHxvQoAn-tMrUFh_ghH0BhzyfOjv-LnczYvGeyE/edit
