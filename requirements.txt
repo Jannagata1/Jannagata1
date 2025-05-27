@@ -1,4 +1,9 @@
-TensorFlow==2.18.0
-Numpy==2.0.2
-Pandas==2.2.2
-Matplotlib==3.10.0
+requests
+beautifulsoup4
+pandas
+gspread
+oauth2client
+gspread_dataframe
+python-dotenv
+pytest
+pytest-cov
