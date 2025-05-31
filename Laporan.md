@@ -144,13 +144,86 @@ Alasan dan manfaat dari tahapan preparation. Setiap tahapan yang diterapkan memi
 - Pembagian data untuk mencegah overfitting dan memungkinkan evaluasi yang objektif.
 - Normalisasi untuk meningkatkan kinerja dan stabilitas algoritma, terutama yang berbasis jarak.
 ## Modeling
-Dalam proyek ini, dilakukan pemodelan machine learning untuk menyelesaikan permasalahan klasifikasi risiko diabetes menggunakan lima algoritma yang berbeda. Tujuannya adalah membandingkan performa masing-masing model setelah proses pelatihan dan tuning. Setiap algoritma diinisialisasi dan dilatih menggunakan data latih. Berikut adalah lima algoritma yang digunakan dalam proses pemodelan:
-- Logistic Regression
+Dalam proyek ini, dilakukan pemodelan machine learning untuk menyelesaikan permasalahan klasifikasi risiko diabetes menggunakan lima algoritma yang berbeda. Tujuannya adalah membandingkan performa masing-masing model setelah proses pelatihan dan tuning. Setiap algoritma diinisialisasi dan dilatih menggunakan data latih. Berikut adalah lima algoritma yang digunakan dalam proses pemodelan beserta penjelasan cara kerjanya:
+- Logistic Regression:
+    1. **Linear Combination**:
+       Model menghitung kombinasi linear dari fitur:
+       z = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
+       di mana:
+       - xᵢ adalah fitur (fitur ke-i).
+       - βᵢ adalah bobot atau koefisien yang dikalikan dengan fitur xᵢ.
+    2. **Fungsi Aktivasi (Sigmoid)**:
+       Output linear z dimasukkan ke fungsi sigmoid untuk mengubahnya menjadi probabilitas:
+       P(y=1|x) = 1 / (1 + e⁻ᶻ)
+    3. **Fungsi Kerugian (Log Loss)**:
+       Model menggunakan fungsi log loss:
+       Loss = −[y log(p) + (1−y) log(1−p)]
+    4. **Optimasi Koefisien**:
+       Menggunakan gradient descent atau solvers lain (misalnya, liblinear). Tujuannya untuk meminimalkan log loss.
+    5. **Prediksi**:
+       - Probabilitas > 0.5 → kelas 1
+       - Probabilitas ≤ 0.5 → kelas 0
 - Random Forest Classifier
+    1. Bootstrap Sampling:
+       Buat banyak subset data acak (dengan pengembalian) dari data training.
+    2. Pembangunan Decision Trees:
+       - Setiap subset digunakan untuk melatih 1 pohon keputusan.
+       - Saat pemilihan fitur di tiap node, hanya sebagian kecil fitur yang dipertimbangkan (feature bagging).
+    3. Split Node:
+       Setiap node memutuskan split terbaik berdasarkan metrik seperti Gini impurity atau entropy.
+    4. Voting:
+       Untuk klasifikasi: setiap pohon memberikan satu suara → kelas dengan mayoritas suara dipilih.
+    5. Output Final:
+       Gabungan hasil dari seluruh pohon → klasifikasi akhir.
 - XGBoost Classifier
+    1. Model Awal:
+       Prediksi awal biasanya konstan (misalnya rata-rata label).
+    2. Hitung Residual/Error:
+       Error dihitung antara label aktual dan prediksi.
+    3. Bangun Pohon Baru:
+       - Pohon baru dilatih untuk memprediksi error (gradien loss).
+       - Gunakan pendekatan gradient descent untuk memperbaiki kesalahan sebelumnya.
+    4. Update Model:
+       - Model diperbarui dengan menambahkan prediksi pohon baru dengan bobot tertentu.
+       - Prediksi akhir:
+         ŷᵗ = ŷᵗ⁻¹ + η·fₜ(x)
+         di mana η adalah learning rate, dan fₜ(x) adalah pohon ke-t.
+    5. Regularisasi:
+       Diterapkan untuk menghindari overfitting, termasuk penalti terhadap jumlah leaf dan besarnya output leaf.
+    6. Berhenti Jika Konvergen:
+       Bisa menggunakan early stopping berdasarkan validasi.
 - Support Vector Machine (SVM)
+    1. Mencari Hyperplane:
+       Model mencari garis (2D), bidang (3D), atau hyperplane (n-D) yang memisahkan kelas secara maksimal.
+    2. Maximize Margin:
+       - Margin = jarak antara hyperplane ke titik data terdekat dari masing-masing kelas.
+       - Titik terdekat ini disebut support vectors.
+    3. Optimization Problem:
+       min₍w, b₎ ½‖w‖² dengan syarat yᵢ(w ⋅ xᵢ + b) ≥ 1
+    4. Jika Data Tidak Linear:
+       Gunakan kernel trick untuk memetakan data ke ruang berdimensi lebih tinggi:
+       - Linear
+       - RBF (Gaussian)
+       - Polynomial
+       - Sigmoid
+    5. Regularisasi (C):
+       Parameter C mengontrol trade-off antara margin maksimum dan kesalahan klasifikasi.
 - K-Nearest Neighbors (KNN)
-
+    1. Membaca Nilai K:
+       Misalnya K = 3 berarti 3 tetangga terdekat akan dipertimbangkan.
+    2. Hitung Jarak:
+       Gunakan metrik seperti:
+       - Euclidean distance:
+         d = √(∑ᵢ (xᵢ − xᵢ′)²)
+       - Manhattan distance
+       - Minkowski distance
+    3. Ambil K Terdekat:
+       Urutkan semua data berdasarkan jarak ke titik uji → ambil K data terdekat.
+    4. Voting:
+       Mayoritas label dari tetangga digunakan sebagai prediksi.
+    5. Untuk Regresi:
+       Prediksi = rata-rata nilai dari K tetangga.
+       
 Untuk meningkatkan performa masing-masing model, dilakukan GridSearchCV untuk mencari kombinasi parameter terbaik pada setiap model:
 - Parameter Logistic Regression adalah "C=1, solver='liblinear'". "C=1" artinya inverse dari regularisasi (C = 1/λ). Nilai kecil artinya regularisasi kuat (menghindari overfitting). C=1 artinya regularisasi moderat. "solver='liblinear'" artinya optimizer yang digunakan untuk mencari parameter terbaik. "liblinear" cocok untuk dataset kecil dan binary classification.
 - Parameter Random Forest adalah "n_estimators=100, max_depth=None, min_samples_split=2, random_state=42". "n_estimators=100" artinya jumlah pohon dalam hutan (semakin banyak maka akurasi naik, tapi waktu komputasi naik). "max_depth=None" artinya kedalaman pohon tidak dibatasi maka pohon bisa tumbuh sampai overfit. "min_samples_split=2" artinya minimum sampel untuk membagi node. Nilai kecil maka pohon bisa tumbuh lebih dalam. "random_state=42" artinya untuk hasil acak yang bisa direproduksi (reproducibility).
@@ -218,10 +291,97 @@ e. Confusion Matrix
 
 Menampilkan jumlah prediksi benar dan salah berdasarkan kelas aktual dan prediksi. Matriks ini membantu melihat distribusi kesalahan model.
 
+
+Model: Logistic Regression
+Classification Report:
+
+                   precision    recall  f1-score   support
+
+               0       0.80      0.83      0.81        99
+               1       0.67      0.62      0.64        55
+
+        accuracy                           0.75       154
+       macro avg       0.73      0.72      0.73       154
+    weighted avg       0.75      0.75      0.75       154
+
+Model: Random Forest
+Classification Report:
+
+                  precision    recall  f1-score   support
+
+               0       0.80      0.79      0.79        99
+               1       0.62      0.64      0.63        55
+    
+        accuracy                           0.73       154
+       macro avg       0.71      0.71      0.71       154
+    weighted avg       0.73      0.73      0.73       154
+
+Model: XGBoost
+Classification Report:
+
+                  precision    recall  f1-score   support
+
+               0       0.80      0.81      0.80        99
+               1       0.65      0.64      0.64        55
+
+        accuracy                           0.75       154
+       macro avg       0.72      0.72      0.72       154
+    weighted avg       0.75      0.75      0.75       154
+
+Model: SVM
+Classification Report:
+
+                  precision    recall  f1-score   support
+
+               0       0.80      0.83      0.81        99
+               1       0.67      0.62      0.64        55
+
+        accuracy                           0.75       154
+       macro avg       0.73      0.72      0.73       154
+    weighted avg       0.75      0.75      0.75       154
+
+Model: KNN
+Classification Report:
+
+                  precision    recall  f1-score   support
+    
+               0       0.80      0.77      0.78        99
+               1       0.61      0.65      0.63        55
+
+        accuracy                           0.73       154
+       macro avg       0.71      0.71      0.71       154
+    weighted avg       0.73      0.73      0.73       154
+
 Evaluasi dilakukan pada semua model setelah proses pelatihan dan tuning parameter. Berdasarkan hasil evaluasi menggunakan metrik di atas, didapatkan bahwa:
 - Model XGBoost memberikan performa yang paling seimbang antara Precision dan Recall.
 - Model SVM dan KNN memiliki keunggulan pada precision, tetapi cenderung lebih rendah recall-nya.
 - Model Logistic Regression cukup stabil tetapi kurang baik menangkap kasus positif.
 - Random Forest memiliki hasil yang kompetitif tetapi sedikit kalah dalam recall dibanding XGBoost.
 
+Kesimpulan:
+1. Penelitian ini menunjukkan bahwa individu yang berisiko terkena diabetes dapat diidentifikasi secara cukup akurat hanya dengan data klinis sederhana seperti jumlah kehamilan, kadar glukosa, tekanan darah,        ketebalan kulit, kadar insulin, indeks massa tubuh (BMI), fungsi silsilah diabetes, dan usia—semuanya tanpa perlu prosedur medis invasif. Model machine learning mampu mengenali pola yang signifikan dari          fitur-fitur ini, sehingga skrining dini terhadap diabetes bisa dilakukan secara cepat dan murah, bahkan di komunitas yang aksesnya terbatas terhadap fasilitas laboratorium.
+2. Berdasarkan hasil evaluasi pada dataset Pima Indian Diabetes, berikut adalah akurasi dan f1-score dari masing-masing model:
+   
+    | Model               | Accuracy | F1-score (class 1) |
+    | ------------------- | -------- | ------------------ |
+    | Logistic Regression | 0.75     | 0.64               |
+    | Random Forest       | 0.73     | 0.63               |
+    | XGBoost             | 0.75     | 0.64               |
+    | SVM                 | 0.75     | 0.64               |
+    | KNN                 | 0.73     | 0.63               |
+
+   Logistic Regression, SVM, dan XGBoost tampil sebagai model dengan performa paling tinggi secara konsisten, dengan akurasi 75% dan f1-score untuk kelas positif (penderita diabetes) sebesar 0.64.
+   Di antara ketiganya, Logistic Regression dan SVM juga memiliki nilai macro average dan weighted average f1-score tertinggi (0.73 dan 0.75), yang mengindikasikan kinerja yang lebih seimbang antar kelas.
+   Maka, SVM bisa dianggap sebagai model yang paling optimal dan andal, karena:
+    - Akurasi dan f1-score kompetitif
+    - Lebih sederhana dan mudah diinterpretasikan
+    - Lebih sedikit overfitting dibanding model kompleks seperti Random Forest atau XGBoost
+3. Berdasarkan interpretasi model menggunakan koefisien Logistic Regression dan/atau feature importance dari Random Forest/XGBoost, fitur yang paling berkontribusi dalam klasifikasi risiko diabetes adalah:
+    - Glukosa – kontribusi paling signifikan terhadap prediksi; makin tinggi, makin besar risiko.
+    - BMI (Indeks Massa Tubuh) – faktor risiko utama karena berkaitan langsung dengan obesitas.
+    - Age (Usia) – semakin tua, semakin tinggi risikonya.
+    - Diabetes Pedigree Function – menunjukkan kemungkinan genetik terhadap diabetes.
+    - Insulin – meski sulit diukur tanpa lab, secara model tetap berperan penting.
+
+Temuan ini dapat digunakan untuk program penyuluhan dan pencegahan dini yang lebih terarah, terutama dengan menekankan gaya hidup sehat pada individu dengan glukosa dan BMI tinggi.
 Berdasarkan kebutuhan konteks medis, Recall dan F1-Score menjadi prioritas utama untuk memastikan pasien yang memiliki diabetes tidak terlewat oleh model.
