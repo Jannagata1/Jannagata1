@@ -1,387 +1,303 @@
-# Laporan Proyek Machine Learning - Jannagata Tan Atmaja
+# Laporan Proyek Membuat Model Sistem Rekomendasi - Jannagata Tan Atmaja
 
 ## Project Overview
-Diabetes mellitus merupakan salah satu penyakit tidak menular paling mematikan dan menjadi tantangan serius dalam sistem kesehatan global. Menurut laporan dari World Health Organization (WHO), pada tahun 2021 terdapat lebih dari 537 juta orang dewasa yang hidup dengan diabetes di seluruh dunia. Jumlah ini diprediksi akan meningkat secara drastis menjadi 643 juta pada tahun 2030, dan bahkan mencapai 783 juta pada tahun 2045 jika tidak ada intervensi yang signifikan. Penyakit ini tidak hanya menyebabkan berbagai komplikasi kronis seperti nefropati (kerusakan ginjal), retinopati (kebutaan), neuropati, dan penyakit jantung koroner, tetapi juga berdampak besar terhadap produktivitas kerja dan pembiayaan kesehatan nasional.
+Minat baca merupakan salah satu aspek penting dalam pembangunan sumber daya manusia yang unggul dan berdaya saing. Di tengah era digital seperti saat ini, masyarakat dihadapkan pada lautan informasi dan pilihan bacaan yang sangat beragam. Hal ini justru menimbulkan tantangan baru, yaitu kesulitan dalam menemukan bacaan yang relevan, berkualitas, dan sesuai dengan preferensi masing-masing individu. Banyak pengguna, terutama pembaca pemula atau pengguna platform buku digital, merasa kewalahan dalam menentukan buku mana yang layak untuk dibaca. Oleh karena itu, dibutuhkan sistem yang dapat membantu pengguna menavigasi berbagai pilihan tersebut secara efisien dan personal.
 
-Di Indonesia sendiri, prevalensi diabetes mengalami peningkatan yang signifikan. Berdasarkan data Riset Kesehatan Dasar (Riskesdas) tahun 2018 dari Kementerian Kesehatan RI, prevalensi diabetes meningkat dari 6,9% (2013) menjadi 8,5% (2018) dari total populasi. Sayangnya, sekitar 2 dari 3 penderita diabetes tidak menyadari bahwa mereka mengidap penyakit ini, sehingga diagnosis sering kali baru dilakukan setelah komplikasi parah muncul. Masalah utama dalam pengendalian diabetes adalah rendahnya tingkat deteksi dini. Pemeriksaan laboratorium konvensional seperti tes HbA1c, Gula Darah Puasa (GDP), dan Glukosa Toleransi Oral (GTT) memiliki keterbatasan dari sisi aksesibilitas, biaya, dan waktu. Oleh karena itu, diperlukan pendekatan alternatif yang efisien, terjangkau, dan mudah digunakan, terutama di daerah dengan fasilitas kesehatan terbatas.
+Salah satu pendekatan teknologi yang dapat menjawab tantangan tersebut adalah pengembangan sistem rekomendasi. Sistem ini telah banyak digunakan oleh platform besar seperti Amazon, Goodreads, dan Google Books untuk memberikan rekomendasi bacaan berdasarkan perilaku pengguna. Sistem rekomendasi tidak hanya membantu pengguna menemukan buku yang sesuai dengan selera mereka, tetapi juga meningkatkan keterlibatan pengguna, memperpanjang waktu penggunaan aplikasi, dan secara tidak langsung mendorong peningkatan literasi. Dalam konteks institusi pendidikan, perpustakaan, dan toko buku daring, sistem rekomendasi juga dapat berperan sebagai alat bantu untuk mempromosikan buku-buku yang kurang dikenal namun relevan bagi pembaca tertentu.
 
-Di sinilah peran teknologi kecerdasan buatan (Artificial Intelligence/AI), khususnya machine learning (ML), menjadi sangat relevan. ML memungkinkan pengembangan sistem deteksi awal berdasarkan data klinis sederhana yang mudah diperoleh, seperti: kadar glukosa, tekanan darah, indeks massa tubuh (BMI), usia, jumlah kehamilan, dan ketebalan kulit. Dengan melatih algoritma klasifikasi pada data ini, kita dapat membangun sistem prediktif yang dapat digunakan sebagai alat bantu untuk menilai risiko diabetes secara non-invasif dan hemat biaya. 
+Terdapat dua pendekatan utama dalam sistem rekomendasi, yaitu content-based filtering dan collaborative filtering. Content-based filtering memberikan rekomendasi berdasarkan kemiripan konten antar buku, seperti genre, penulis, atau kata-kata kunci pada deskripsi buku. Sementara itu, collaborative filtering menggunakan informasi interaksi antara pengguna dan buku, seperti rating, untuk menemukan pola dan preferensi yang tersembunyi. Kombinasi kedua pendekatan ini memungkinkan sistem rekomendasi untuk bekerja secara lebih akurat, terutama ketika data yang tersedia terbatas. Oleh karena itu, dalam proyek ini kedua metode tersebut digunakan untuk meningkatkan kualitas rekomendasi.
 
-Dalam proyek ini, digunakan dataset Pima Indian Diabetes yang berisi catatan medis dari wanita keturunan Indian Pima di Amerika Serikat. Dataset ini telah banyak digunakan sebagai benchmark dalam penelitian klasifikasi diabetes karena karakteristiknya yang representatif dan kualitas data yang terstruktur. Proyek bertujuan untuk membangun sistem klasifikasi diabetes yang akurat dan dapat diinterpretasikan dengan baik melalui pembandingan lima algoritma klasifikasi machine learning, yaitu logistic regression, random forest, XGBoost, support vector machine, dan k-nearest model. Dengan mengevaluasi kelima model ini, proyek ini diharapkan dapat menghasilkan model terbaik yang akurat, stabil, dan dapat dijelaskan (interpretable) sehingga dapat berkontribusi pada peningkatan deteksi dini diabetes secara digital dan berkelanjutan.
+Menurut laporan Grand View Research (2022), pasar global sistem rekomendasi diperkirakan akan tumbuh secara signifikan dengan tingkat pertumbuhan tahunan (CAGR) sebesar 37,5% dari tahun 2022 hingga 2030. Angka ini menunjukkan bahwa sistem rekomendasi tidak hanya menjadi fitur tambahan, melainkan kebutuhan penting dalam berbagai sektor, termasuk edukasi dan literasi digital. Dengan semakin meluasnya digitalisasi layanan dan peningkatan jumlah pengguna platform daring, sistem rekomendasi akan menjadi alat vital untuk menyaring dan mempersonalisasi informasi secara efisien. Hal ini memperkuat urgensi untuk mengembangkan sistem rekomendasi buku yang efektif dan terjangkau, bahkan dalam skala kecil.
+
+Melalui proyek ini, dikembangkan sistem rekomendasi buku berbasis content-based filtering dan collaborative filtering menggunakan dataset yang relatif kecil. Pendekatan ini relevan terutama bagi institusi atau platform yang belum memiliki data dalam jumlah besar namun tetap ingin memberikan pengalaman pengguna yang cerdas dan terpersonalisasi. Dengan membangun model rekomendasi yang ringan dan akurat, proyek ini diharapkan dapat menjadi prototipe sistem yang dapat diterapkan lebih luas, sekaligus mendukung inisiatif literasi di Indonesia secara digital dan berkelanjutan.
 ## Business Understanding
 ### Problem Statements
+Di era digital dengan jutaan pilihan bacaan yang tersedia secara daring, pengguna sering kali mengalami kesulitan dalam menemukan buku yang sesuai dengan preferensi dan kebutuhan mereka. Permasalahan ini diperparah oleh kurangnya sistem rekomendasi yang dapat mempersonalisasi saran bacaan berdasarkan minat dan riwayat pengguna, terutama pada platform dengan skala data kecil atau menengah. Tanpa sistem yang cerdas dan adaptif, pengguna cenderung mengandalkan pencarian manual atau mengikuti tren umum, yang belum tentu mencerminkan kebutuhan atau minat mereka secara personal.
 
-Menjelaskan pernyataan masalah:
-- Bagaimana cara mengidentifikasi individu yang berisiko terkena diabetes menggunakan data klinis sederhana tanpa prosedur medis invasif?
-Banyak masyarakat yang tidak memiliki akses mudah ke pemeriksaan laboratorium atau belum menyadari pentingnya skrining dini terhadap diabetes.
-- Model machine learning mana yang paling akurat dan andal untuk melakukan klasifikasi diabetes pada dataset Pima Indian Diabetes?
-Diperlukan pembandingan antar model untuk mengetahui mana yang paling optimal dan generalisabel dalam klasifikasi risiko diabetes.
-- Fitur klinis apa yang paling berkontribusi dalam klasifikasi risiko diabetes?
-Pemahaman terhadap fitur penting dapat membantu penyuluhan dan pencegahan dini yang lebih terarah.
+Selain itu, banyak platform edukasi atau perpustakaan digital di institusi pendidikan dan toko buku lokal belum menerapkan sistem rekomendasi karena keterbatasan sumber daya dan infrastruktur. Akibatnya, pengguna tidak mendapatkan pengalaman eksplorasi bacaan yang optimal, dan buku-buku yang relevan tetapi kurang populer menjadi sulit ditemukan. Permasalahan ini menghambat upaya untuk meningkatkan literasi, minat baca, dan keterlibatan pengguna dalam platform tersebut.
 
 ### Goals
-
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Mengembangkan sistem klasifikasi berbasis machine learning untuk mendeteksi risiko diabetes hanya berdasarkan parameter klinis seperti glukosa darah, BMI, tekanan darah, dan lainnya.
-- Membandingkan lima algoritma klasifikasi yaitu Logistic Regression, Random Forest, XGBoost, SVM, dan KNN untuk menentukan model dengan performa terbaik berdasarkan metrik evaluasi (akurasi, precision, recall, F1-score).
-- Mengidentifikasi fitur-fitur klinis yang paling berpengaruh dalam diagnosis diabetes melalui teknik interpretasi model (seperti feature importance dari Random Forest/XGBoost atau koefisien pada Logistic Regression).
+Tujuan dari proyek ini adalah untuk mengembangkan sistem rekomendasi buku yang mampu memberikan saran bacaan yang relevan dan dipersonalisasi bagi setiap pengguna, dengan tetap mempertimbangkan keterbatasan ukuran dataset. Sistem yang dikembangkan diharapkan dapat:
+- Memberikan rekomendasi buku berdasarkan preferensi pengguna secara otomatis dan efisien.
+- Bekerja secara optimal meskipun data interaksi pengguna tidak terlalu besar.
+- Diterapkan sebagai prototipe pada platform skala kecil atau institusi pendidikan.
+- Mengintegrasikan dua pendekatan yang saling melengkapi untuk meningkatkan kualitas rekomendasi.
+- Dengan tercapainya tujuan ini, sistem diharapkan mampu menjadi fondasi solusi literasi digital yang bersifat adaptif, personal, dan skalabel.
 
 ### Solution Approach
-1. Penerapan dan pembandingan lima algoritma klasifikasi. Solusi pertama adalah menerapkan lima algoritma machine learning populer dan membandingkan performanya berdasarkan metrik evaluasi yang relevan. Algoritma yang digunakan meliputi:
-    - Logistic Regression
-    - Random Forest
-    - XGBoost
-    - Support Vector Machine (SVM)
-    - K-Nearest Neighbors (KNN)
-      
-    Tujuan dari pendekatan ini adalah mengevaluasi keandalan masing-masing model dalam mengklasifikasikan individu sebagai positif atau negatif diabetes. Model yang             menghasilkan performa terbaik berdasarkan metrik:
-    - Akurasi adalah persentase klasifikasi yang benar dari seluruh prediksi.
-    - Precision adalah seberapa akurat prediksi positif model.
-    - Recall adalah kemampuan model dalam menemukan seluruh kasus positif.
-    - F1-score adalah harmonik dari precision dan recall, cocok saat data tidak seimbang.
-      
-    Dengan membandingkan hasil dari kelima model, kita dapat mengidentifikasi pendekatan yang paling efektif dan dapat dipercaya untuk diterapkan secara nyata.
-2. Peningkatan model melalui hyperparameter tuning dan cross-validation. Solusi kedua adalah melakukan penyetelan hyperparameter (hyperparameter tuning) dan cross-validation pada model-model terbaik dari solusi pertama untuk meningkatkan performa dan menghindari overfitting. Langkah-langkah utama dalam solusi ini meliputi:
-    - Menggunakan teknik Grid Search atau Randomized Search untuk menemukan kombinasi hyperparameter optimal.
-    - Menerapkan k-Fold Cross-Validation (misal 5-Fold) untuk menguji stabilitas model pada data yang berbeda dan memperkirakan generalisasi model.
-    - Mengukur dan membandingkan ulang hasil dengan metrik yang sama: accuracy, precision, recall, dan F1-score.
-      
-    Tujuannya adalah memastikan model tidak hanya unggul pada data pelatihan, namun juga memiliki generalizability yang tinggi saat digunakan pada data nyata yang belum pernah dilihat sebelumnya.
+Untuk mencapai tujuan tersebut, proyek ini menggunakan dua pendekatan utama dalam sistem rekomendasi:
+
+1. Content-Based Filtering
+Pendekatan ini merekomendasikan buku kepada pengguna berdasarkan kemiripan konten dengan buku yang sebelumnya disukai. Informasi yang digunakan biasanya berupa fitur seperti judul, genre, atau deskripsi buku. Model menghitung kemiripan antar item dengan teknik seperti TF-IDF dan cosine similarity, lalu menyarankan buku yang paling mirip dengan preferensi pengguna. Pendekatan ini efektif dalam memberikan rekomendasi personal tanpa bergantung pada interaksi pengguna lain, sehingga cocok untuk mengatasi masalah cold start pada pengguna baru.
+
+2. Collaborative Filtering (Matrix Factorization – SVD)
+Collaborative filtering merekomendasikan buku berdasarkan pola interaksi antar pengguna. Teknik yang digunakan dalam proyek ini adalah Singular Value Decomposition (SVD) dari pustaka Surprise. Dengan menganalisis rating atau ulasan dari pengguna terhadap buku-buku tertentu, model dapat mengidentifikasi kesamaan preferensi antar pengguna dan memberikan saran berdasarkan perilaku pengguna serupa. Meskipun memerlukan cukup banyak data interaksi, pendekatan ini unggul dalam menemukan rekomendasi dari buku-buku yang sebelumnya belum pernah dilihat oleh pengguna.
+
+Kedua pendekatan ini diuji dan dibandingkan untuk mengevaluasi keunggulan masing-masing, dengan harapan dapat menghasilkan sistem rekomendasi yang efektif dalam berbagai kondisi, baik pada data yang minim fitur maupun data yang minim interaksi pengguna.
+
 ## Data Understanding
-Dataset yang digunakan dalam proyek ini adalah Pima Indians Diabetes Database, yang merupakan dataset medis populer untuk klasifikasi kondisi diabetes. Dataset ini diperoleh dari Kaggle dan dapat diakses melalui tautan berikut: 
+Dataset yang digunakan dalam proyek sistem rekomendasi buku ini merupakan bagian dari Book Recommendation Dataset yang tersedia secara publik di platform Kaggle. Dataset ini terdiri dari beberapa file, namun proyek ini secara khusus memanfaatkan dua file utama, yaitu Books.csv dan Ratings.csv. Dataset ini dirancang untuk membangun sistem rekomendasi buku berbasis data eksplisit berupa rating yang diberikan oleh pengguna terhadap buku. Dataset tersebut dapat diakses melalui tautan berikut:
 
-https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database 
+https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset 
 
-Dataset ini berisi 768 data observasi yang merepresentasikan pasien perempuan keturunan Pima Indian berusia di atas 21 tahun. Tujuan dari dataset ini adalah untuk memprediksi apakah seorang pasien mengidap diabetes atau tidak berdasarkan sejumlah fitur medis yang diperoleh dari pemeriksaan klinis. Dataset memiliki sebanyak 768 baris dengan 8 fitur prediktor dan 1 fitur target. file dalam format csv. Pada dataset, terdapat beberapa fitur yang memiliki nilai 0 yang tidak realistis dan dianggap sebagai missing value (contoh: Glucose, BMI, Insulin). Untuk variabel target, berisi angka nol dan satu, di mana nol adalah orang yang tidak terkena diabetes dan satu adalah orang yang terkena diabetes. Berikut adalah penjelasan mengenai masing masing variabelnya:
-| **Fitur**                  | **Tipe Data**  | **Deskripsi**                                                                 |
-| -------------------------- | -------------- | ----------------------------------------------------------------------------- |
-| `Pregnancies`              | Numerik        | Jumlah kehamilan yang pernah dialami pasien                                   |
-| `Glucose`                  | Numerik        | Kadar glukosa plasma dalam tes 2 jam oral glucose tolerance (mg/dL)           |
-| `BloodPressure`            | Numerik        | Tekanan darah diastolik (mm Hg)                                               |
-| `SkinThickness`            | Numerik        | Ketebalan lipatan kulit trisep (mm)                                           |
-| `Insulin`                  | Numerik        | Kadar insulin serum 2 jam (mu U/ml)                                           |
-| `BMI`                      | Numerik        | Indeks massa tubuh (kg/m²), menghitung rasio berat badan dan tinggi badan     |
-| `DiabetesPedigreeFunction` | Numerik        | Fungsi silsilah diabetes, menunjukkan kemungkinan genetik berdasarkan riwayat |
-| `Age`                      | Numerik        | Usia pasien (dalam tahun)                                                     |
-| `Outcome`                  | Kategori (0/1) | Label target: 1 jika menderita diabetes, 0 jika tidak                         |
+Penjelasan mengenai data yang digunakan, yaitu:
+1. File Books.csv memuat metadata deskriptif mengenai buku-buku yang tersedia dalam sistem. Total terdapat 271.360 baris data, di mana setiap baris mewakili satu entitas buku berdasarkan ISBN unik. Dataset ini      memiliki 8 fitur utama:
 
-Berikut adalah distribusi untuk variabel target:
+    | Fitur               | Tipe Data | Deskripsi                                           |
+    | ------------------- | --------- | --------------------------------------------------- |
+    | ISBN                | Object    | Nomor identifikasi buku yang unik secara global     |
+    | Book-Title          | Object    | Judul buku                                          |
+    | Book-Author         | Object    | Nama penulis buku                                   |
+    | Year-Of-Publication | Object    | Tahun penerbitan, namun mengandung data tidak valid |
+    | Publisher           | Object    | Nama penerbit buku                                  |
+    | Image-URL-S         | Object    | URL gambar berukuran kecil                          |
+    | Image-URL-M         | Object    | URL gambar berukuran sedang                         |
+    | Image-URL-L         | Object    | URL gambar berukuran besar                          |
 
-![image](https://github.com/user-attachments/assets/740066bb-2c6c-46b1-a26e-fcb2156b3d0e)
+    Beberapa nilai pada kolom Year-Of-Publication ditemukan tidak valid, seperti berisi string 'DK Publishing Inc', 'Gallimard', atau nilai tahun yang ekstrem seperti 0 atau 9999. Hal ini menunjukkan perlunya        pembersihan data atau penghilangan kolom jika tidak relevan. Dalam proyek ini, fokus utama dari file ini adalah pada fitur Book-Title dan Book-Author, yang digunakan untuk membentuk representasi konten pada      pendekatan content-based filtering.
 
-Dapat dilihat dari grafik bahwa dataset tidak seimbang (imbalanced), karena jumlah data pada kelas nol jauh lebih banyak dibanding kelas satu. Artinya, ada ketimpangan kelas (imbalanced dataset), meskipun belum ekstrem. Sehingga tidak perlu diberlakukan oversampling. Selanjutnya berikut hubungan antar variabel dalam bentuk heatmap:
+2. File Ratings.csv mencatat interaksi eksplisit antara pengguna dan buku dalam bentuk rating. Terdapat 1.149.780 baris data yang masing-masing mencerminkan satu aktivitas pemberian rating oleh pengguna             terhadap buku tertentu. Dataset ini memiliki 3 kolom:
 
-![image](https://github.com/user-attachments/assets/40314dc0-5da0-487c-af0d-16f5903b8e91)
+    | Fitur       | Tipe Data | Deskripsi                                                  |
+    | ----------- | --------- | ---------------------------------------------------------- |
+    | User-ID     | Integer   | ID unik pengguna                                           |
+    | ISBN        | Object    | ISBN buku yang diberi rating                               |
+    | Book-Rating | Integer   | Nilai rating dari 0 hingga 10 yang diberikan oleh pengguna |
 
-Berikut adalah penjelasannya:
+    Sebaran nilai rating menunjukkan bahwa sebagian besar rating bernilai 0, yang mengindikasikan tidak adanya rating eksplisit (kemungkinan besar merupakan interaksi implisit atau placeholder). Oleh karena itu,     dalam tahap data preparation, nilai rating bernilai 0 dihapus dan hanya rating eksplisit (1–10) yang dipertahankan untuk pendekatan collaborative filtering.
 
-| Fitur                        | Korelasi terhadap `Outcome` | Interpretasi                                     |
-| ---------------------------- | --------------------------- | ------------------------------------------------ |
-| **Glucose**                  | **0.47**                    | Paling berkorelasi; kadar gula tinggi → diabetes |
-| **BMI**                      | 0.29                        | Korelasi sedang; berat badan tinggi → berisiko   |
-| **Age**                      | 0.24                        | Orang lebih tua lebih berisiko                   |
-| **Pregnancies**              | 0.22                        | Semakin banyak kehamilan, risiko meningkat       |
-| **Insulin**                  | 0.13                        | Korelasi lemah                                   |
-| **BloodPressure**            | 0.065                       | Sangat lemah                                     |
-| **SkinThickness**            | 0.075                       | Lemah                                            |
-| **DiabetesPedigreeFunction** | 0.17                        | Keturunan juga berpengaruh sedikit               |
+3. Exploratory Data Analysis (EDA)
+   - Sebelum preprocessing:
+     
+     ![image](https://github.com/user-attachments/assets/1ed9bcd2-460c-42aa-8867-9a0ce120b0f7)
 
-Sehingga fitur yang paling penting untuk prediksi diabetes secara linier adalah:
-- Glucose
-- BMI
-- Age
-- Pregnancies
-  
-Untuk keseluruhan:
-- Fitur Glucose adalah indikator paling kuat untuk memprediksi diabetes.
-- BMI, Age, dan Jumlah Kehamilan juga relevan.
-- Korelasi antar fitur cukup rendah, artinya semua fitur bisa tetap dipertahankan.
-- Korelasi ini membantu saat ingin memilih fitur penting untuk feature selection atau model interpretability.
-
-Dataset memiliki nilai nol atau dapat disebut data yang tidak valid, yaitu:
-- Glucose memiliki 5 nilai nol.
-- BloodPressure memiliki 35 nilai nol.
-- SkinThickness memiliki 227 nilai nol.
-- Insulin memiliki 374 nilai nol.
-- BMI memiliki 11 nilai nol.
-
-Yang terakhir adalah distribusi setiap fitur, dapat dilihat dari gambar berikut:
-
-![image](https://github.com/user-attachments/assets/384feb0b-b141-4e68-b2b0-c5d245424cf4)
-
-Berikut adalah penjelasannya:
-
-| Fitur                        | Distribusi                     | Interpretasi                                                             |
-| ---------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
-| **Pregnancies**              | Positively skewed              | Mayoritas pasien memiliki sedikit kehamilan; nilai tinggi jarang.        |
-| **Glucose**                  | Hampir normal, sedikit skew    | Sebagian besar pasien memiliki kadar gula 80–150, outlier >180 ada.      |
-| **BloodPressure**            | Mendekati normal               | Terdistribusi simetris, dengan rata-rata sekitar 70–80.                  |
-| **SkinThickness**            | Positively skewed, zero peak   | Banyak nilai nol atau rendah → kemungkinan ada missing value disamarkan. |
-| **Insulin**                  | Sangat skewed ke kanan (right) | Banyak nol → indikasi data kosong atau tidak diukur. Outlier tinggi.     |
-| **BMI**                      | Hampir normal                  | Rata-rata BMI sekitar 30–35. Distribusi cukup sehat.                     |
-| **DiabetesPedigreeFunction** | Skewed kanan                   | Mayoritas bernilai kecil; beberapa kasus dengan risiko keturunan tinggi. |
-| **Age**                      | Skewed kanan                   | Mayoritas pasien muda hingga usia pertengahan; sedikit pasien lansia.    |
-| **Outcome**                  | Kategori biner (0 atau 1)      | Tidak seimbang → kelas 0 (tidak diabetes) lebih banyak dari kelas 1.     |
-
-Sehingga dapat disimpulkan:
-- Distribusi bervariasi: tidak semua normal, beberapa sangat miring.
-- Beberapa fitur mengandung nilai nol tidak wajar, indikasi data tidak lengkap.
-- Skewness signifikan pada Insulin, Age, Pregnancies, Pedigree.
-- Normalisasi dan imputasi sangat penting untuk persiapan data.
-- Perlu penanganan outlier sebelum pemodelan.
-## Data Preparation
-Pada tahap ini dilakukan serangkaian proses pembersihan dan penyesuaian data sebelum digunakan dalam pelatihan model machine learning. Tujuannya adalah untuk memastikan bahwa data bersih, bebas dari inkonsistensi, dan berada dalam format yang sesuai untuk digunakan oleh berbagai algoritma klasifikasi. Teknik-teknik yang diterapkan dijelaskan secara terurut di bawah ini:
-- Penanganan nilai tidak logis. Berdasarkan pemahaman domain medis, terdapat beberapa fitur dalam dataset yang tidak mungkin memiliki nilai nol secara biologis. Nilai nol pada fitur-fitur seperti Glucose, BloodPressure, SkinThickness, Insulin, dan BMI diindikasikan sebagai data hilang atau tidak tercatat. Oleh karena itu, nilai nol pada fitur-fitur tersebut digantikan dengan nilai NaN (Not a Number) untuk selanjutnya diproses.
-- Imputasi data yang hilang. Setelah nilai nol dikonversi menjadi NaN, data yang hilang diimputasi menggunakan nilai median dari masing-masing kolom. Penggunaan median bertujuan untuk mengurangi pengaruh nilai pencilan (outlier) yang umum ditemukan pada data medis.
-- Pemisahan fitur dan target. Seluruh fitur prediktor (X) dipisahkan dari target label (y), di mana kolom Outcome sebagai target menunjukkan apakah seorang pasien positif atau negatif diabetes.
-- Pembagian data training dan testing. Dataset dibagi menjadi dua subset, yaitu data training sebesar 80% dan data testing sebesar 20%. Tujuannya adalah untuk membangun model menggunakan data training dan mengevaluasi performanya menggunakan data testing yang belum pernah dilihat sebelumnya oleh model.
-- Normalisasi data, normalisasi dilakukan menggunakan teknik StandardScaler dari pustaka sklearn. Proses ini bertujuan untuk menstandardisasi skala fitur sehingga setiap fitur memiliki rata-rata nol dan deviasi standar satu. Ini sangat penting untuk algoritma seperti K-Nearest Neighbors, Support Vector Machine, dan Logistic Regression yang sensitif terhadap skala data.
-
-Alasan dan manfaat dari tahapan preparation. Setiap tahapan yang diterapkan memiliki alasan yang kuat berdasarkan praktik terbaik machine learning:
-- Penanganan nilai tidak logis untuk menghindari bias akibat nilai yang tidak mungkin secara biologis.
-- Imputasi data hilang untuk menjaga konsistensi ukuran dataset dan mengurangi kehilangan informasi.
-- Pemisahan fitur dan target untuk menyiapkan data sesuai dengan struktur supervised learning.
-- Pembagian data untuk mencegah overfitting dan memungkinkan evaluasi yang objektif.
-- Normalisasi untuk meningkatkan kinerja dan stabilitas algoritma, terutama yang berbasis jarak.
-## Modeling
-Dalam proyek ini, dilakukan pemodelan machine learning untuk menyelesaikan permasalahan klasifikasi risiko diabetes menggunakan lima algoritma yang berbeda. Tujuannya adalah membandingkan performa masing-masing model setelah proses pelatihan dan tuning. Setiap algoritma diinisialisasi dan dilatih menggunakan data latih. Berikut adalah lima algoritma yang digunakan dalam proses pemodelan beserta penjelasan cara kerjanya:
-- Logistic Regression:
-    1. **Linear Combination**:
-       Model menghitung kombinasi linear dari fitur:
-       z = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
-       di mana:
-       - xᵢ adalah fitur (fitur ke-i).
-       - βᵢ adalah bobot atau koefisien yang dikalikan dengan fitur xᵢ.
-    2. **Fungsi Aktivasi (Sigmoid)**:
-       Output linear z dimasukkan ke fungsi sigmoid untuk mengubahnya menjadi probabilitas:
-       P(y=1|x) = 1 / (1 + e⁻ᶻ)
-    3. **Fungsi Kerugian (Log Loss)**:
-       Model menggunakan fungsi log loss:
-       Loss = −[y log(p) + (1−y) log(1−p)]
-    4. **Optimasi Koefisien**:
-       Menggunakan gradient descent atau solvers lain (misalnya, liblinear). Tujuannya untuk meminimalkan log loss.
-    5. **Prediksi**:
-       - Probabilitas > 0.5 → kelas 1
-       - Probabilitas ≤ 0.5 → kelas 0
-- Random Forest Classifier
-    1. Bootstrap Sampling:
-       Buat banyak subset data acak (dengan pengembalian) dari data training.
-    2. Pembangunan Decision Trees:
-       - Setiap subset digunakan untuk melatih 1 pohon keputusan.
-       - Saat pemilihan fitur di tiap node, hanya sebagian kecil fitur yang dipertimbangkan (feature bagging).
-    3. Split Node:
-       Setiap node memutuskan split terbaik berdasarkan metrik seperti Gini impurity atau entropy.
-    4. Voting:
-       Untuk klasifikasi: setiap pohon memberikan satu suara → kelas dengan mayoritas suara dipilih.
-    5. Output Final:
-       Gabungan hasil dari seluruh pohon → klasifikasi akhir.
-- XGBoost Classifier
-    1. Model Awal:
-       Prediksi awal biasanya konstan (misalnya rata-rata label).
-    2. Hitung Residual/Error:
-       Error dihitung antara label aktual dan prediksi.
-    3. Bangun Pohon Baru:
-       - Pohon baru dilatih untuk memprediksi error (gradien loss).
-       - Gunakan pendekatan gradient descent untuk memperbaiki kesalahan sebelumnya.
-    4. Update Model:
-       - Model diperbarui dengan menambahkan prediksi pohon baru dengan bobot tertentu.
-       - Prediksi akhir:
-         ŷᵗ = ŷᵗ⁻¹ + η·fₜ(x)
-         di mana η adalah learning rate, dan fₜ(x) adalah pohon ke-t.
-    5. Regularisasi:
-       Diterapkan untuk menghindari overfitting, termasuk penalti terhadap jumlah leaf dan besarnya output leaf.
-    6. Berhenti Jika Konvergen:
-       Bisa menggunakan early stopping berdasarkan validasi.
-- Support Vector Machine (SVM)
-    1. Mencari Hyperplane:
-       Model mencari garis (2D), bidang (3D), atau hyperplane (n-D) yang memisahkan kelas secara maksimal.
-    2. Maximize Margin:
-       - Margin = jarak antara hyperplane ke titik data terdekat dari masing-masing kelas.
-       - Titik terdekat ini disebut support vectors.
-    3. Optimization Problem:
-       min₍w, b₎ ½‖w‖² dengan syarat yᵢ(w ⋅ xᵢ + b) ≥ 1
-    4. Jika Data Tidak Linear:
-       Gunakan kernel trick untuk memetakan data ke ruang berdimensi lebih tinggi:
-       - Linear
-       - RBF (Gaussian)
-       - Polynomial
-       - Sigmoid
-    5. Regularisasi (C):
-       Parameter C mengontrol trade-off antara margin maksimum dan kesalahan klasifikasi.
-- K-Nearest Neighbors (KNN)
-    1. Membaca Nilai K:
-       Misalnya K = 3 berarti 3 tetangga terdekat akan dipertimbangkan.
-    2. Hitung Jarak:
-       Gunakan metrik seperti:
-       - Euclidean distance:
-         d = √(∑ᵢ (xᵢ − xᵢ′)²)
-       - Manhattan distance
-       - Minkowski distance
-    3. Ambil K Terdekat:
-       Urutkan semua data berdasarkan jarak ke titik uji → ambil K data terdekat.
-    4. Voting:
-       Mayoritas label dari tetangga digunakan sebagai prediksi.
-    5. Untuk Regresi:
-       Prediksi = rata-rata nilai dari K tetangga.
-       
-Untuk meningkatkan performa masing-masing model, dilakukan GridSearchCV untuk mencari kombinasi parameter terbaik pada setiap model:
-- Parameter Logistic Regression adalah "C=1, solver='liblinear'". "C=1" artinya inverse dari regularisasi (C = 1/λ). Nilai kecil artinya regularisasi kuat (menghindari overfitting). C=1 artinya regularisasi moderat. "solver='liblinear'" artinya optimizer yang digunakan untuk mencari parameter terbaik. "liblinear" cocok untuk dataset kecil dan binary classification.
-- Parameter Random Forest adalah "n_estimators=100, max_depth=None, min_samples_split=2, random_state=42". "n_estimators=100" artinya jumlah pohon dalam hutan (semakin banyak maka akurasi naik, tapi waktu komputasi naik). "max_depth=None" artinya kedalaman pohon tidak dibatasi maka pohon bisa tumbuh sampai overfit. "min_samples_split=2" artinya minimum sampel untuk membagi node. Nilai kecil maka pohon bisa tumbuh lebih dalam. "random_state=42" artinya untuk hasil acak yang bisa direproduksi (reproducibility).
-- Parameter XGBoost adalah "learning_rate=0.1, max_depth=3, n_estimators=50, subsample=1.0, use_label_encoder=False, eval_metric='logloss', random_state=42". "learning_rate=0.1" artinya ukuran langkah dalam boosting. Nilai kecil maka pelatihan lebih lambat tapi bisa lebih akurat. "max_depth=3" artinya maksimal kedalaman setiap pohon. Semakin besar maka model lebih kompleks. "n_estimators=50" artinya jumlah boosting rounds (jumlah pohon). "subsample=1.0" artinya persentase sampel data yang digunakan tiap pohon. 1.0 berarti semua data. "use_label_encoder=False" artinya tidak menggunakan encoder label bawaan (rekomendasi baru). "eval_metric='logloss'" artinya metrik evaluasi yang digunakan selama training. "random_state=42" agar hasilnya bisa diulang.
-- Parameter SVM adalah "C=1, gamma='scale', kernel='linear', probability=True, random_state=42". "C=1" artinya regularisasi. Nilai kecil maka margin lebih lebar (lebih general), nilai besar maka mencoba mengklasifikasikan semua data dengan benar. "gamma='scale'" artinya parameter untuk kernel RBF/polinomial. "scale" otomatis menyesuaikan berdasarkan jumlah fitur. "kernel='linear'" artinya menggunakan kernel linier (cocok untuk data linear separable). "probability=True" artinya menghitung probabilitas prediksi (menambah beban komputasi). "random_state=42" untuk hasil acak yang konsisten.
-- Parameter KNN adalah "n_neighbors=7, weights='uniform', metric='manhattan'". "n_neighbors=7" artinya jumlah tetangga terdekat yang digunakan untuk menentukan kelas. "weights='uniform'" artinya semua tetangga diberi bobot yang sama. "metric='manhattan'" menggunakan jarak Manhattan (L1), cocok jika fitur punya skala yang mirip atau sudah dinormalisasi.
-
-Proses ini dilakukan menggunakan 5-fold cross-validation untuk menjamin stabilitas hasil tuning. Model-model dilatih ulang menggunakan parameter hasil tuning dan digunakan untuk membuat prediksi pada data uji.
-
-Kelebihan dan kekurangan dari masing-masing algoritma, yaitu:
-| Algoritma               | Kelebihan                                                         | Kekurangan                                                         |
-| ----------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **Logistic Regression** | Sederhana, interpretatif, cepat                                   | Kurang akurat untuk hubungan non-linear                            |
-| **Random Forest**       | Tahan terhadap overfitting, fleksibel                             | Relatif lambat dalam prediksi, kurang interpretatif                |
-| **XGBoost**             | Performa tinggi, efisien, menangani missing value secara internal | Kompleksitas tinggi, tuning memerlukan waktu dan sumber daya       |
-| **SVM**                 | Efektif pada dimensi tinggi dan margin yang jelas                 | Tidak efisien untuk data besar, sensitif terhadap pemilihan kernel |
-| **KNN**                 | Konsep sederhana dan mudah diimplementasikan                      | Waktu prediksi lambat, dipengaruhi jumlah fitur dan skala data     |
-
-## Evaluation
-Dalam proyek klasifikasi ini, metrik evaluasi yang digunakan untuk mengukur performa model adalah sebagai berikut:
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Confusion Matrix
-
-Metrik-metrik ini dipilih karena sesuai dengan konteks data dan permasalahan klasifikasi kesehatan yang berpotensi berdampak serius jika salah klasifikasi. Dalam kasus ini, kesalahan dalam mengklasifikasikan pasien diabetes (false negative) lebih berisiko daripada false positive. Oleh karena itu, Recall dan F1-Score menjadi metrik yang sangat penting.
-
-Penjelasan metrik evaluasi:
-
-a. Accuracy
-
-Mengukur proporsi prediksi yang benar terhadap keseluruhan prediksi.
-
-Accuracy = (TP + TN)/(TP + TN + FP + FN)
-
-- Kelebihannya adalah mudah dipahami, cocok digunakan jika distribusi kelas seimbang.
-- Kekurangannya adalahTidak cukup informatif jika data tidak seimbang (seperti pada kasus ini).
-
-b. Precision
-
-Mengukur seberapa tepat model dalam memprediksi kelas positif (yaitu penderita diabetes).
-
-Precision = TP/(TP + FP)
-
-Precision untuk menghindari false positive, misalnya untuk mengurangi diagnosis palsu.
-
-c. Recall (Sensitivity)
-
-Mengukur seberapa banyak data kelas positif yang berhasil ditangkap oleh model.
-
-Recall = TP/(TP + FN)
-
-Sangat penting dalam konteks medis, karena kita ingin meminimalkan false negative (tidak salah mengklasifikasikan penderita sebagai sehat).
-
-d. F1-Score
-
-Merupakan rata-rata harmonis dari Precision dan Recall.
-
-F1-Score = 2 ( (Precision) (Recall)/(Precision) + (Recall) )
-
-Cocok untuk data tidak seimbang, karena F1-score memberikan keseimbangan antara Precision dan Recall. F1-Score menggabungkan dua aspek penting, yaitu ketepatan dan kelengkapan.
-
-e. Confusion Matrix
-
-Menampilkan jumlah prediksi benar dan salah berdasarkan kelas aktual dan prediksi. Matriks ini membantu melihat distribusi kesalahan model.
-
-
-Model: Logistic Regression
-Classification Report:
-
-                   precision    recall  f1-score   support
-
-               0       0.80      0.83      0.81        99
-               1       0.67      0.62      0.64        55
-
-        accuracy                           0.75       154
-       macro avg       0.73      0.72      0.73       154
-    weighted avg       0.75      0.75      0.75       154
-
-Model: Random Forest
-Classification Report:
-
-                  precision    recall  f1-score   support
-
-               0       0.80      0.79      0.79        99
-               1       0.62      0.64      0.63        55
-    
-        accuracy                           0.73       154
-       macro avg       0.71      0.71      0.71       154
-    weighted avg       0.73      0.73      0.73       154
-
-Model: XGBoost
-Classification Report:
-
-                  precision    recall  f1-score   support
-
-               0       0.80      0.81      0.80        99
-               1       0.65      0.64      0.64        55
-
-        accuracy                           0.75       154
-       macro avg       0.72      0.72      0.72       154
-    weighted avg       0.75      0.75      0.75       154
-
-Model: SVM
-Classification Report:
-
-                  precision    recall  f1-score   support
-
-               0       0.80      0.83      0.81        99
-               1       0.67      0.62      0.64        55
-
-        accuracy                           0.75       154
-       macro avg       0.73      0.72      0.73       154
-    weighted avg       0.75      0.75      0.75       154
-
-Model: KNN
-Classification Report:
-
-                  precision    recall  f1-score   support
-    
-               0       0.80      0.77      0.78        99
-               1       0.61      0.65      0.63        55
-
-        accuracy                           0.73       154
-       macro avg       0.71      0.71      0.71       154
-    weighted avg       0.73      0.73      0.73       154
-
-Evaluasi dilakukan pada semua model setelah proses pelatihan dan tuning parameter. Berdasarkan hasil evaluasi menggunakan metrik di atas, didapatkan bahwa:
-- Model XGBoost memberikan performa yang paling seimbang antara Precision dan Recall.
-- Model SVM dan KNN memiliki keunggulan pada precision, tetapi cenderung lebih rendah recall-nya.
-- Model Logistic Regression cukup stabil tetapi kurang baik menangkap kasus positif.
-- Random Forest memiliki hasil yang kompetitif tetapi sedikit kalah dalam recall dibanding XGBoost.
-
-Kesimpulan:
-1. Penelitian ini menunjukkan bahwa individu yang berisiko terkena diabetes dapat diidentifikasi secara cukup akurat hanya dengan data klinis sederhana seperti jumlah kehamilan, kadar glukosa, tekanan darah,        ketebalan kulit, kadar insulin, indeks massa tubuh (BMI), fungsi silsilah diabetes, dan usia—semuanya tanpa perlu prosedur medis invasif. Model machine learning mampu mengenali pola yang signifikan dari          fitur-fitur ini, sehingga skrining dini terhadap diabetes bisa dilakukan secara cepat dan murah, bahkan di komunitas yang aksesnya terbatas terhadap fasilitas laboratorium.
-2. Berdasarkan hasil evaluasi pada dataset Pima Indian Diabetes, berikut adalah akurasi dan f1-score dari masing-masing model:
+     Dari gambar di atas diketahui, jumlah rating dengan nilai 0 sangat tinggi, yaitu lebih dari 700.000. Ini menunjukkan bahwa mayoritas data rating diisi dengan angka 0, yang bukan penilaian sebenarnya,             melainkan kemungkinan pengguna tidak memberi rating sama sekali, sistem mencatat buku yang dibaca/tambah ke rak tanpa memberi nilai, atau placeholder untuk missing value. Jadi rating 0 harus dibuang              sebelum dipakai untuk pelatihan model rekomendasi, karena tidak memberi informasi preferensi pengguna.
    
-    | Model               | Accuracy | F1-score (class 1) |
-    | ------------------- | -------- | ------------------ |
-    | Logistic Regression | 0.75     | 0.64               |
-    | Random Forest       | 0.73     | 0.63               |
-    | XGBoost             | 0.75     | 0.64               |
-    | SVM                 | 0.75     | 0.64               |
-    | KNN                 | 0.73     | 0.63               |
+     ![image](https://github.com/user-attachments/assets/a69831f1-1dbb-4ef1-bed9-bed9882aa3da)
 
-   Logistic Regression, SVM, dan XGBoost tampil sebagai model dengan performa paling tinggi secara konsisten, dengan akurasi 75% dan f1-score untuk kelas positif (penderita diabetes) sebesar 0.64.
-   Di antara ketiganya, Logistic Regression dan SVM juga memiliki nilai macro average dan weighted average f1-score tertinggi (0.73 dan 0.75), yang mengindikasikan kinerja yang lebih seimbang antar kelas.
-   Maka, SVM bisa dianggap sebagai model yang paling optimal dan andal, karena:
-    - Akurasi dan f1-score kompetitif
-    - Lebih sederhana dan mudah diinterpretasikan
-    - Lebih sedikit overfitting dibanding model kompleks seperti Random Forest atau XGBoost
-3. Berdasarkan interpretasi model menggunakan koefisien Logistic Regression dan/atau feature importance dari Random Forest/XGBoost, fitur yang paling berkontribusi dalam klasifikasi risiko diabetes adalah:
-    - Glukosa – kontribusi paling signifikan terhadap prediksi; makin tinggi, makin besar risiko.
-    - BMI (Indeks Massa Tubuh) – faktor risiko utama karena berkaitan langsung dengan obesitas.
-    - Age (Usia) – semakin tua, semakin tinggi risikonya.
-    - Diabetes Pedigree Function – menunjukkan kemungkinan genetik terhadap diabetes.
-    - Insulin – meski sulit diukur tanpa lab, secara model tetap berperan penting.
+     Dari gambar di atas diketahui buku-buku yang muncul di sini bukan hanya karena disukai atau dinilai tinggi, tapi mungkin hanya banyak dicatat tanpa ada penilaian nyata.
 
-Temuan ini dapat digunakan untuk program penyuluhan dan pencegahan dini yang lebih terarah, terutama dengan menekankan gaya hidup sehat pada individu dengan glukosa dan BMI tinggi.
-Berdasarkan kebutuhan konteks medis, Recall dan F1-Score menjadi prioritas utama untuk memastikan pasien yang memiliki diabetes tidak terlewat oleh model.
+     ![image](https://github.com/user-attachments/assets/692b9f65-39a5-470c-b36e-b0c8d496443f)
+
+     Dari gambar di atas diketahui bahwa:
+
+     | Peringkat | Nama Penulis        | Jumlah Buku (estimasi visual) |
+     | --------- | ------------------- | ----------------------------- |
+     | 1         | Agatha Christie     | ±630 buku                     |
+     | 2         | William Shakespeare | ±580 buku                     |
+     | 3         | Stephen King        | ±530 buku                     |
+     | 4         | Ann M. Martin       | ±430 buku                     |
+     | 5         | Carolyn Keene       | ±370 buku                     |
+     | 6         | Francine Pascal     | ±365 buku                     |
+     | 7         | Isaac Asimov        | ±330 buku                     |
+     | 8         | Nora Roberts        | ±315 buku                     |
+     | 9         | Barbara Cartland    | ±310 buku                     |
+     | 10        | Charles Dickens     | ±300 buku                     |
+
+     Agatha Christie adalah penulis paling produktif dalam dataset ini, dengan lebih dari 600 buku terdaftar.
+
+     Banyaknya jumlah buku dari penulis klasik seperti Shakespeare, Charles Dickens, dan Barbara Cartland bisa jadi karena:
+        - Berbagai versi edisi/terjemahan masuk sebagai entri terpisah.
+        - Buku-buku lama yang sudah menjadi domain publik dan banyak dicetak ulang.
+
+    - Setelah preprocessing:
+      
+      ![image](https://github.com/user-attachments/assets/d2654617-473b-4be4-97f3-65ffdd9e9635)\
+  
+      Dari gambar di atas diketahui bahwa:
+
+      | Rating | Jumlah Rating (Estimasi visual) | Catatan                                  |
+      | ------ | ------------------------------- | ---------------------------------------- |
+      | 1      | ±2.000                          | Sangat jarang digunakan                  |
+      | 2      | ±3.000                          | Masih sangat sedikit                     |
+      | 3      | ±6.000                          | Relatif jarang                           |
+      | 4      | ±9.000                          | Mulai meningkat                          |
+      | 5      | ±51.000                         | Cukup banyak, titik infleksi awal        |
+      | 6      | ±37.000                         | Sedikit menurun                          |
+      | 7      | ±76.000                         | Mulai tinggi                             |
+      | 8      | **±104.000**                    | **Paling banyak diberikan**              |
+      | 9      | ±68.000                         | Tinggi, tapi menurun                     |
+      | 10     | ±78.000                         | Masih tinggi, pengguna cenderung positif |
+
+      Hal-hal yang dapat dianalisis, yaitu:
+      - Distribusi Positif: Terlihat jelas bahwa sebagian besar pengguna memberi rating yang cukup tinggi (7–10).
+      - Puncaknya di 8: Nilai rating 8 adalah yang paling sering diberikan, menunjukkan banyak buku yang dianggap sangat bagus.
+      - Distribusi Skewed (Condong ke Kanan): Artinya pengguna lebih suka memberikan rating tinggi dibandingkan rating rendah.
+      - Rating rendah (1–4) sangat jarang: Bisa karena:
+        - Buku yang dinilai buruk tidak dilanjutkan membaca, jadi tidak dirating.
+        - Pengguna cenderung hanya menilai buku yang mereka sukai.
+        - Bias umum: orang cenderung tidak memberikan kritik negatif.
+        
+      ![image](https://github.com/user-attachments/assets/9bd265de-f979-4148-9511-7285ec9fdee0)
+
+      Dari gambar di atas diketahui bahwa:
+
+      | Ranking | Judul Buku                                                       | Jumlah Rating (estimasi visual) |
+      | ------- | ---------------------------------------------------------------- | ------------------------------- |
+      | 1       | The Lovely Bones: A Novel                                        | ±700                            |
+      | 2       | Wild Animus                                                      | ±600                            |
+      | 3       | The Da Vinci Code                                                | ±500                            |
+      | 4       | The Red Tent (Bestselling Backlist)                              | ±400                            |
+      | 5       | Divine Secrets of the Ya-Ya Sisterhood: A Novel                  | ±350                            |
+      | 6       | Harry Potter and the Sorcerer’s Stone (Harry Potter (Paperback)) | ±340                            |
+      | 7       | The Secret Life of Bees                                          | ±320                            |
+      | 8       | Where the Heart Is (Oprah’s Book Club (Paperback))               | ±310                            |
+      | 9       | A Painted House                                                  | ±300                            |
+      | 10      | Girl with a Pearl Earring                                        | ±300                            |
+  
+      Hal-hal yang dapat dianalisis, yaitu:
+      - The Lovely Bones: A Novel menjadi buku dengan jumlah rating terbanyak, menggeser Wild Animus (yang sebelumnya di peringkat atas saat data masih mengandung rating 0).
+      - Harry Potter mulai muncul dalam daftar setelah rating 0 dibuang, menunjukkan bahwa:
+        - Banyak pembaca benar-benar memberi rating valid terhadap buku ini.
+        - Namun mungkin banyak rating 0 sebelumnya yang menutupi posisi aslinya.
+      - Buku-buku populer dan mainstream seperti The Da Vinci Code dan The Secret Life of Bees masih bertahan sebagai buku dengan rating tinggi.
+
+## Data Preparation
+Tahap data preparation merupakan langkah esensial sebelum membangun sistem rekomendasi, karena data mentah sering kali mengandung informasi yang tidak relevan, tidak konsisten, atau tidak dapat langsung digunakan oleh model. Dalam proyek ini, proses data preparation dilakukan secara sistematis melalui lima teknik utama yang diterapkan secara berurutan, dengan penjelasan dan alasan yang mendasarinya sebagai berikut:
+
+1. Load dataset, langkah pertama yang dilakukan adalah membaca dua file utama dalam dataset, yaitu Books.csv dan Ratings.csv, menggunakan pustaka pandas dengan encoding 'latin-1'. Encoding ini dipilih untuk memastikan pembacaan karakter khusus pada metadata buku dapat dilakukan dengan benar tanpa error. Untuk membaca data ke dalam struktur dataframe merupakan dasar dari seluruh proses analisis dan modeling. Tanpa proses ini, data tidak dapat diakses atau dimanipulasi untuk keperluan sistem rekomendasi.
+2. Rename kolom untuk konsistensi, setelah data berhasil dimuat, dilakukan perubahan nama kolom agar lebih ringkas dan konsisten dengan gaya penamaan Python. Kolom "ISBN" diubah menjadi "book_id", "Book-Title" menjadi "title", "Book-Author" menjadi "author", serta "User-ID" menjadi "user_id". Konsistensi penamaan sangat penting untuk mempermudah pengolahan data dan menghindari potensi kesalahan dalam tahap penggabungan dan pemanggilan kolom saat eksplorasi maupun modeling.
+3. Filter data rating yang valid, pada file Ratings.csv, nilai rating yang bernilai 0 dihapus. Hal ini dikarenakan rating 0 menunjukkan bahwa pengguna tidak memberikan penilaian yang eksplisit terhadap suatu buku. Hanya rating dengan nilai 1 hingga 10 yang dipertahankan. Sistem rekomendasi berbasis collaborative filtering membutuhkan data preferensi eksplisit untuk dapat mengenali pola kesukaan pengguna. Rating nol tidak memberikan informasi yang berguna untuk proses ini dan dapat mengganggu akurasi model.
+4. Menambahkan fitur ‘content’ untuk content-based filtering, untuk pendekatan content-based filtering, dilakukan penggabungan antara kolom title dan author ke dalam satu kolom baru bernama content. Kolom ini digunakan sebagai basis pembuatan vektor representasi teks menggunakan teknik TF-IDF (Term Frequency–Inverse Document Frequency). Kolom content memberikan informasi tekstual yang digunakan untuk menghitung kemiripan antar buku. Dengan membentuk representasi vektor dari data teks ini, sistem dapat merekomendasikan buku-buku yang serupa berdasarkan konten.
+5. Menghapus entri dengan nilai kosong (missing values), sebelum data digunakan untuk membangun model content-based filtering, dilakukan pembersihan entri yang memiliki nilai kosong pada kolom title dan author. Hal ini dilakukan dengan perintah "books_small = books_small.dropna(subset=['title', 'author']).reset_index(drop=True)". Nilai kosong pada dua kolom ini dapat mengganggu proses pembentukan fitur content, karena fitur tersebut dibentuk dari gabungan nilai teks title dan author. Jika salah satu bernilai kosong (NaN), maka informasi konten menjadi tidak lengkap atau bahkan tidak valid. Penghapusan dilakukan secara selektif hanya pada entri yang tidak memiliki informasi penting ini, untuk menjaga kualitas data tanpa membuang informasi yang masih berguna. Proses ini juga diikuti dengan reset_index agar indeks DataFrame tetap rapi dan berurutan setelah entri dihapus.
+6. Sampling data untuk efisiensi pemrosesan, untuk mempercepat proses pelatihan model dan eksplorasi awal, dilakukan penyamplingan terhadap data pengguna dan buku. Dataset asli memiliki jumlah interaksi dan entitas yang sangat besar, sehingga pemrosesan penuh akan membutuhkan sumber daya komputasi yang tinggi. Oleh karena itu, dilakukan pengambilan sampel sebanyak 500 pengguna unik secara acak menggunakan perintah "user_sample = ratings['user_id'].drop_duplicates().sample(500, random_state=42)", lalu difilter agar ratings_small hanya berisi interaksi dari pengguna yang disampling tersebut. Selanjutnya, diambil 1000 buku unik dari interaksi tersebut menggunakan "book_sample = ratings_small['book_id'].drop_duplicates().sample(1000, random_state=42)", lalu kembali disaring agar ratings_small hanya mencakup rating terhadap buku-buku tersebut. Terakhir, dataset metadata buku (books) juga difilter agar hanya mencakup buku-buku yang masih ada pada ratings_small, dengan perintah "books_small = books[books['book_id'].isin(ratings_small['book_id'].unique())]". Sampling ini bertujuan untuk menjaga efisiensi dan mempermudah eksperimen, tanpa mengorbankan representasi data yang relevan.
+   
+Dengan menerapkan keenam teknik di atas, data berhasil dibersihkan, diseleksi, disusun ulang, dan disiapkan untuk dua pendekatan sistem rekomendasi, yaitu content-based filtering dan collaborative filtering. Tahap ini berfungsi sebagai fondasi utama dalam memastikan bahwa model yang dibangun dapat bekerja dengan efisien dan menghasilkan rekomendasi yang relevan serta berkualitas.
+
+
+# Modelling and Result
+Sistem Rekomendasi untuk Menyelesaikan Permasalahan
+Dalam era digital saat ini, pengguna sering kali kesulitan memilih buku yang sesuai dengan preferensi mereka karena banyaknya pilihan yang tersedia. Untuk mengatasi masalah ini, proyek ini membangun sistem rekomendasi buku yang dapat memberikan saran personal bagi pengguna. Dua pendekatan utama yang digunakan adalah:
+- Content-Based Filtering, yang merekomendasikan buku serupa berdasarkan konten buku yang pernah disukai pengguna.
+- Collaborative Filtering, khususnya menggunakan algoritma Singular Value Decomposition (SVD), yang merekomendasikan buku berdasarkan pola interaksi pengguna lain yang memiliki preferensi serupa.
+
+Kedua pendekatan ini dirancang untuk saling melengkapi dan memberikan pengalaman rekomendasi yang relevan baik bagi pengguna baru maupun pengguna lama.
+
+### Pendekatan 1: Content-Based Filtering
+Pendekatan ini mengandalkan informasi konten dari buku, seperti judul dan penulis. Dalam implementasinya, digunakan metode TF-IDF (Term Frequency–Inverse Document Frequency) untuk merepresentasikan teks dari judul buku dan menghitung cosine similarity untuk menemukan kemiripan antar buku.
+
+Buku Referensi (Acuan): Bare: On Women, Dancing, Sex, and Power
+
+Penulis: Elisabeth Eaves
+
+Top-5 Rekomendasi Content-Based Filtering:
+
+| No | Judul Buku                    | Penulis                |
+| -- | ----------------------------- | ---------------------- |
+| 1  | Monoosook Valley              | Elisabeth Hyde         |
+| 2  | Death Dancing Footman         | Ngaio Marsh            |
+| 3  | Sex for Dummies               | Dr. Ruth K. Westheimer |
+| 4  | Women with Men: Three Stories | Richard Ford           |
+| 5  | The Gate to Women's Country   | Sheri S. Tepper        |
+
+Pendekatan ini sangat efektif digunakan ketika sistem memiliki informasi tentang buku yang disukai pengguna, namun belum memiliki cukup data interaksi (cold-start user).
+
+### Pendekatan 2: Collaborative Filtering (SVD)
+
+Collaborative Filtering bekerja dengan menganalisis pola rating yang diberikan oleh pengguna terhadap berbagai buku. Dengan menggunakan algoritma Singular Value Decomposition (SVD), model mampu mengidentifikasi preferensi tersembunyi pengguna dan kesamaan antar pengguna atau item.
+
+User ID Referensi: 253966
+ 
+Top-5 Rekomendasi Collaborative Filtering (SVD):
+
+| No | Judul Buku                     | Penulis             |
+| -- | ------------------------------ | ------------------- |
+| 1  | The Lovely Bones: A Novel      | Alice Sebold        |
+| 2  | Into the Wild                  | Jon Krakauer        |
+| 3  | The Bridges of Madison County  | Robert James Waller |
+| 4  | The Great Gatsby               | F. Scott Fitzgerald |
+| 5  | INVASION OF THE BODY SNATCHERS | Jack Finney         |
+
+Model ini dapat memberikan rekomendasi personal meskipun tidak memperhatikan isi buku, melainkan berdasarkan pola rating dari pengguna dengan preferensi serupa.
+
+### Perbandingan Pendekatan
+
+| Aspek              | Content-Based Filtering                             | Collaborative Filtering (SVD)                              |
+| ------------------ | --------------------------------------------------- | ---------------------------------------------------------- |
+| Berdasarkan        | Fitur konten buku (judul, penulis)                  | Pola interaksi antar pengguna dan buku                     |
+| Cocok untuk        | Pengguna baru dengan data buku yang disukai         | Pengguna aktif dengan banyak rating                        |
+| Kelebihan          | Tidak perlu data dari pengguna lain                 | Sangat personal, memanfaatkan data historis pengguna lain  |
+| Kelemahan          | Kurang variasi rekomendasi (buku serupa saja)       | Cold-start problem (tidak efektif untuk pengguna baru)     |
+| Contoh Rekomendasi | Buku mirip dengan *Bare: On Women, Dancing, Sex...* | Buku populer di kalangan pengguna mirip dengan user 253966 |
+
+Dengan menggabungkan Content-Based dan Collaborative Filtering, sistem rekomendasi buku menjadi lebih adaptif dalam menghadapi berbagai kondisi pengguna. Pendekatan hybrid ini memperkuat personalisasi rekomendasi sekaligus menangani keterbatasan masing-masing metode. Sistem seperti ini sangat bermanfaat untuk platform digital perpustakaan, toko buku online, atau aplikasi pembaca yang ingin meningkatkan keterlibatan pengguna.
+## Evaluation
+### Metrik Evaluasi yang Digunakan
+
+Dalam proyek ini, dua jenis sistem rekomendasi dikembangkan, yaitu Content-Based Filtering dan Collaborative Filtering (SVD). Karena masing-masing pendekatan memiliki karakteristik yang berbeda, maka digunakan dua jenis metrik evaluasi yang sesuai dengan konteks masing-masing:
+
+1. Precision@K dan Recall@K untuk Content-Based Filtering.
+
+   Digunakan untuk mengevaluasi sejauh mana sistem mampu merekomendasikan item yang benar-benar relevan (yang disukai oleh pengguna).
+   Precision@K mengukur proporsi item yang relevan di antara seluruh rekomendasi yang diberikan:
+    - Precision@K = |Recommended ∩ Relevant| / |Recommended|
+    
+      atau
+  
+      Precision@K = (jumlah item relevan dalam top-K rekomendasi) / (jumlah total item yang direkomendasikan sampai K)
+  
+      Recall@K mengukur proporsi item yang relevan yang berhasil direkomendasikan dari seluruh item yang relevan:
+    - Recall@K = |Recommended ∩ Relevant| / |Relevant|
+  
+      atau
+
+      Recall@K = (jumlah item relevan dalam top-K rekomendasi) / (jumlah total item relevan)
+  
+      Metrik ini sesuai untuk skenario di mana kita ingin menilai kualitas rekomendasi Top-N, yaitu seberapa relevan hasil yang diberikan oleh sistem terhadap preferensi pengguna.
+
+2. Root Mean Squared Error (RMSE) untuk Collaborative Filtering (SVD).
+   
+   RMSE digunakan untuk mengukur sejauh mana model dapat memprediksi rating pengguna terhadap item dengan akurasi tinggi. Formula RMSE:
+
+   RMSE = √(∑(ri - r̂i)² / n)
+   
+   Keterangan:
+   - ri adalah nilai rating aktual yang diberikan pengguna pada item ke-i,
+   - r̂i adalah nilai rating prediksi yang diberikan sistem pada item ke-i,
+   - n adalah jumlah total data (jumlah prediksi yang dihitung).
+
+    Semakin rendah RMSE, semakin akurat prediksi model. Metrik ini sangat relevan pada model rating-based seperti SVD karena berfokus pada kesalahan prediksi kuantitatif.
+
+### Hasil Evaluasi
+
+1. Content-Based Filtering:
+    - 📘 Buku acuan (random): In the Drink
+    - ✍️ Penulis: Kate Christensen
+    - 📚 Rekomendasi yang diberikan:
+      - Human Croquet – Kate Atkinson
+      - The Idea of Perfection – Kate Grenville
+      - A Drink Before the War – Dennis Lehane
+      - Isle of Dogs – Patricia Cornwell
+      - Purity in Death – J.D. Robb
+    - 📚 Buku yang disukai oleh user ID 125514: Kitchen, Bridget Jones: The Edge of Reason, In the Drink, Dying in the City of the Blues
+    - 🔎 Evaluasi Top-N (N=5):
+      - ✅ Precision@5: 0.00
+      - ✅ Recall@5: 0.00
+    - Interpretasinya adalah Sistem Content-Based Filtering belum berhasil merekomendasikan buku yang termasuk dalam daftar buku yang pernah disukai user ini. Hal ini bisa disebabkan oleh keterbatasan informasi        konten (judul dan penulis saja), atau minimnya kesamaan kosakata antar buku yang disukai dengan buku lainnya di dataset kecil ini.
+2. Collaborative Filtering (SVD)
+   - 👤 User ID acuan: 91886
+   - 🤝 Rekomendasi:
+     - The Lovely Bones: A Novel – Alice Sebold
+     - The Bridges of Madison County – Robert James Waller
+     - C Is for Corpse – Sue Grafton
+     - The Toughest Indian in the World – Sherman Alexie
+     - The Life and Death of King Richard the Second – William Shakespeare
+    - 📏 RMSE model SVD: 1.7745
+    - Interpretasinya adalah dengan RMSE sebesar 1.77, model memiliki tingkat kesalahan prediksi yang tergolong sedang. Artinya, meskipun rekomendasi yang diberikan cukup informatif, masih terdapat perbedaan           signifikan antara rating yang diprediksi dan rating aktual. Ini bisa disebabkan oleh data yang terbatas, sparsity tinggi, atau variasi preferensi pengguna yang sangat beragam.
+### Kesimpulan Evaluasi
+- Content-Based Filtering cocok untuk sistem dengan data pengguna terbatas dan fokus pada metadata buku (judul dan penulis), tetapi menunjukkan kelemahan dalam relevansi hasil rekomendasi (Precision dan Recall rendah).
+- Collaborative Filtering (SVD) menunjukkan prediksi rating yang cukup baik secara kuantitatif (RMSE ~1.77), namun performa rekomendasi masih bisa ditingkatkan dengan data yang lebih lengkap dan representatif.
+
+## Kesimpulan
+Permasalahan utama yang diangkat dalam proyek ini adalah kesulitan pengguna dalam menemukan buku yang sesuai dengan preferensi mereka secara personal, terutama pada platform dengan data berskala kecil atau menengah yang tidak memiliki sistem rekomendasi adaptif. Melalui proyek ini, dua pendekatan sistem rekomendasi telah diimplementasikan dan dievaluasi: Content-Based Filtering dan Collaborative Filtering (SVD).
+
+Hasil eksperimen menunjukkan bahwa:
+- Content-Based Filtering, meskipun sederhana dan tidak bergantung pada riwayat pengguna lain, memiliki keterbatasan dalam kualitas rekomendasi ketika hanya mengandalkan informasi dasar seperti judul dan penulis. Evaluasi menggunakan metrik Precision@5 dan Recall@5 menghasilkan nilai 0, menandakan bahwa rekomendasi belum sepenuhnya sesuai dengan preferensi aktual pengguna.
+- Collaborative Filtering menggunakan SVD mampu memprediksi rating pengguna terhadap buku yang belum pernah dibaca dengan cukup baik, ditunjukkan oleh nilai RMSE sebesar 1.77. Meskipun belum sempurna, model ini memberikan dasar yang kuat untuk personalisasi berdasarkan pola interaksi pengguna dalam dataset kecil.
+
+Dengan demikian, proyek ini membuktikan bahwa bahkan dengan keterbatasan data dan sumber daya, sistem rekomendasi yang cerdas tetap dapat dikembangkan untuk meningkatkan pengalaman eksplorasi bacaan pengguna. Sistem ini dapat membantu:
+- Pengguna menemukan buku-buku relevan yang tidak populer atau tidak sedang tren.
+- Platform lokal seperti perpustakaan digital sekolah, universitas, atau toko buku kecil menyediakan saran bacaan yang dipersonalisasi tanpa infrastruktur yang kompleks.
+- Mendorong minat baca dan meningkatkan keterlibatan pengguna terhadap platform literasi digital.
+
+Proyek ini menunjukkan bahwa sistem rekomendasi bukan hanya milik platform besar, tetapi dapat diadaptasi untuk skala kecil dengan pendekatan yang tepat. Implementasi sistem ini diharapkan menjadi langkah awal menuju ekosistem literasi yang lebih inklusif, relevan, dan efisien bagi semua pengguna.
